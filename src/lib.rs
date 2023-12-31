@@ -25,8 +25,8 @@
 //! ```
 //!
 //! [display-interface-spi crate]: https://crates.io/crates/display-interface-spi
-use embedded_hal::delay::blocking::DelayUs;
-use embedded_hal::digital::blocking::OutputPin;
+use embedded_hal::blocking::delay::{DelayUs, DelayMs};
+use embedded_hal::digital::v2::OutputPin;
 
 use core::iter::once;
 use display_interface::DataFormat::{U16BEIter, U8Iter};
@@ -134,7 +134,7 @@ where
         _display_size: SIZE,
     ) -> Result<Self>
     where
-        DELAY: DelayUs,
+        DELAY: DelayUs<u8> + DelayMs<u8>,
         SIZE: DisplaySize,
         MODE: Mode,
     {
